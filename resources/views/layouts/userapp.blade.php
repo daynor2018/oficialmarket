@@ -66,12 +66,18 @@
                             <span class="input-group-text"><i class="icon icon-key"></i></span>
                             </div>
                             <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Contraseña" required>
+                            <span class="input-group-addon">
+                                {{--  --}}
+                            <input type="checkbox" id="show" style="display: none;" /><label for="show" class="btn btn-primary"><span class="icon icon-key-1"></span></label>
+                                {{--  --}}
+                            </span>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
                         </div>
+                        {{--  --}}
                         <div class="form-group row">
                             <div class="col-md-12">
                             <div class="custom-control custom-checkbox">
@@ -150,10 +156,28 @@
             </div>
         </div>
 {{--  --}}
-    <script type="text/javascript" src="{{asset('/jquery/jquery-3.3.1.slim.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('/popper/popper.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('/bootstrap/js/bootstrap.min.js')}}"></script>
-
-
+    <script type="text/javascript" src="{{asset('jquery/jquery-3.3.1.slim.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('popper/popper.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('jquery/jquery-1.4.2.min.js')}}"></script>
+    <script type="text/javascript">  
+    $(document).ready( function(){
+        $('#show').attr('checked', false);
+        $('#show').click(function(){
+            name = $('#password').attr('name');
+            value = $('#password').attr('value');
+            if($(this).attr('checked'))
+            {
+                html = '<input class="form-control" type="text" name="'+ name + '" value="' + value + '" id="password"/>';
+                $('#password').after(html).remove();
+            }
+            else
+            {
+                html = '<input class="form-control" type="password" name="'+ name + '" value="' + value + '" id="password"/>';
+                $('#password').after(html).remove();
+            }
+        });
+    });
+      </script>
 </body>
 </html>
