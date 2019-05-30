@@ -50,16 +50,13 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:191'],
-            'second_name' => ['string', 'max:191'],
-            'paternal_last_name' => ['required', 'string', 'max:191'],
-            'maternal_last_name' => ['required', 'string', 'max:191'],
-            'ci' => ['required', 'number'],
+            'name' => ['required', 'alpha', 'min:2','max:50'],
+            'paternal_last_name' => ['required', 'alpha', 'min:2', 'max:50'],
+            'ci' => ['required', 'string', 'unique:users' ],
             'departament' => ['required', 'string', 'max:3'],
-            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
-            'name_user' => ['required', 'string', 'max:191', 'unique:users'],
-            'birthdate' => ['required', 'date'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'email' => ['required', 'string', 'max:191', 'unique:users'],
+            'birthdate' => ['required'],
+            'password' => ['required', 'string', 'min:7', 'confirmed','max:20'],
         ]);
     }
 
@@ -71,16 +68,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $elemento1=substr($data['name'],0,1);
+        $elemento2=substr($data['paternal_last_name'],0,1);
+        $elemento4=$data['ci'];
         $user = User::create([
+        'name' => $data['name'],
         'name' => $data['name'],
         'second_name' => $data['second_name'],
         'paternal_last_name' => $data['paternal_last_name'],
         'maternal_last_name' => $data['maternal_last_name'],
         'ci' => $data['ci'],
-        'departament' => $data['departament'],
+        'department' => $data['department'],
         'email' => $data['email'],
-        'name_user' => $data['name_user'],
-        'birthdate' => $data['birthdate'],
+        'name_user' => strtolower($elemento1.$elemento2.$elemento4),
+        'birthdate' => date("Y/m/d", strtotime($data['birthdate'])),
         'password' => bcrypt($data['password']),
         ]);
         $user->roles()->attach(Role::where('name', 'user')->first());

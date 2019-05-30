@@ -19,20 +19,16 @@ class UserSeeder extends Seeder
         $role_cashier = Role::where('name', 'cashier')->first();
 
         $user = new User();
+        $user->department_id = '4';
         $user->name = 'daynor';
-        $user->second_name = 'hernando';
         $user->paternal_last_name = 'plata';
-        $user->maternal_last_name = 'huanca';
-        $user->ci = '7062781';
-        $user->department = 'lp';
-        $user->email = 'daynor@gmail.com';
         $user->name_user = 'keydaypadmin';
-        $user->birthdate = '1996/11/22';
+        $user->cinit = '7062781018';
+        $user->email = 'daynor@gmail.com';     
+        $user->birthdate = '1997/11/22';
+        $user->genre = 'm';
         $user->password = bcrypt('aui%&PYD');
         $user->save();
         $user->roles()->attach($role_admin);
-        $user->roles()->attach($role_user);
-        $user->roles()->attach($role_employee);
-        $user->roles()->attach($role_cashier);
     }
 }

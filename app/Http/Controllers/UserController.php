@@ -48,7 +48,7 @@ class UserController extends Controller
         $user->save();
         if ($request->rol == "user") {
             $user->roles()->attach(Role::where('name', 'user')->first());
-            return redirect(route('showuser'))->with('successMsg','Guardado con exito!');
+            return redirect(route('showuser'))->with('successMsg','Guardado con exito!');    
         }else{
             if($request->rol == "cashier"){
                 $user->roles()->attach(Role::where('name', 'cashier')->first());

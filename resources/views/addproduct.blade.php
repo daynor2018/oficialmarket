@@ -31,15 +31,15 @@
                                 @endforeach
                               </div>
                           @endif
-                        <form  method="POST" action="{{route('registerproduct')}}">
+                        <form  method="POST" action="{{route('registerproduct')}}" enctype="multipart/form-data">
                           @csrf
                           <div class="form-group">
                             <label for="name">Nombre del producto</label>
                             <input type="name" class="form-control" id="name" name="name" value="{{ old('name') }}" autocomplete="off">
                           </div>
                           <div class="form-group">   
-                          <label for="imagen">Subir Imagen</label>
-                          <input type="file" class="form-control-file" id="imagen" name="imagen">    
+                          <label for="image">Subir Imagen</label>
+                          <input type="file" class="form-control-file" id="image" name="image">    
                           </div>
                           <div class="form-group">
                             <label for="description">Descripción:</label>

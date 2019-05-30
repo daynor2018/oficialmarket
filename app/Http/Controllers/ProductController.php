@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Image;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -32,8 +33,28 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->name=strtolower($request->name);
-        $product->second_name=strtolower($request->second_name);
+        // 
+         // ruta de las imagenes guardadas
+          $ruta = public_path().'/img/';
+
+          // recogida del form
+          $imagenOriginal = $request->file('image');
+
+          // crear instancia de imagen
+          $imagen = Image::make($imagenOriginal);
+
+          // generar un nombre aleatorio para la imagen
+          $temp_name = $request->name . '.' . $imagenOriginal->getClientOriginalExtension();
+
+          $imagen->resize(300,300);
+
+          // guardar imagen
+          // save( [ruta], [calidad])
+          $imagen->save($ruta . $temp_name, 100);
+        // 
+        $product->image=$temp_name;
         $product->description=strtolower($request->description);
+        $product->state="0";
         $product->save();
         return redirect(route('showproducts'))->with('successMsg','Guardado con exito!');
     }

@@ -17,7 +17,7 @@ class CreateDetailSalesTable extends Migration
             $table->increments('id');
             $table->integer('sale_id')->unsigned();
             $table->integer('product_id')->unsigned();
-            $table->float('quantity');
+            $table->integer('quantity');
             $table->foreign('sale_id')->references('id')->on('sales');
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
